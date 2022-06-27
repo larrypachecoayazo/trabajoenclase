@@ -1,5 +1,6 @@
 package co.edu.unab.mgads.lpacheco.storeapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -29,12 +30,26 @@ class MainActivity : AppCompatActivity() {
         // val myClient:User = User(name = "Larry Pacheco", password = "12345678")
         // binding.user = myClient
 
+
+        Toast.makeText(this, "Error Login", Toast.LENGTH_SHORT).show()
+
+
         binding.loginBtnLogin.setOnClickListener {
 
+
+
+
             if (viewModel.login()) {
-                Toast.makeText(this, "Login exitoso", Toast.LENGTH_SHORT).show()
+
+                Toast.makeText(this, "Login exitoso", Toast.LENGTH_SHORT,).show()
+
+                val intent = Intent(applicationContext, ProductListActivity::class.java)
+                intent.putExtra("mensaje", "Hola")
+                intent.putExtra("data", viewModel.user.name)
+                startActivity(intent)
             } else{
-                Toast.makeText(this, "Error Login", Toast.LENGTH_SHORT).show()
+                System.out.println("No")
+                // Toast.makeText(this, "Error Login", Toast.LENGTH_SHORT).show()
             }
 
             /*

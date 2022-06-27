@@ -1,7 +1,6 @@
 package co.edu.unab.mgads.lpacheco.storeapp
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -9,15 +8,26 @@ import co.edu.unab.mgads.lpacheco.storeapp.databinding.ProductItemBinding
 
 class ProductAdapter(private var products:MutableList<Product>): RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
+    var onItemClickListener :((Product)->Unit)?=null
+
     fun refresh(myProducts: MutableList<Product>){
         products=myProducts
     }
 
     class ProductViewHolder(private val binding: ProductItemBinding): RecyclerView.ViewHolder(binding.root){
 
-        fun bind(myProduct:Product){
+        fun bind(myProduct: Product, onItemClickListener: ((Product) -> Unit)?){
+
             binding.product= myProduct
+
+            binding.root.setOnClickListener {
+                onItemClickListener?.let {
+                    it(myProduct)
+                }
+            }
+
         }
+
 
     }
 
@@ -34,7 +44,7 @@ class ProductAdapter(private var products:MutableList<Product>): RecyclerView.Ad
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.bind(products[position])
+        holder.bind(products[position], onItemClickListener)
     }
 
     override fun getItemCount(): Int = products.size

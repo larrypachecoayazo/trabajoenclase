@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">StoreApp</string>
+    <string name="ogin_hint_email">Ingrese su email</string>
+    <string name="login_hint_password">Escriba su contraseña</string>
+    <string name="login_btn_btnlogin">Login</string>
+    <string name="login_txt_btnsignup">SIGNUP</string>
+    <string name="email">larpax@gmail.com</string>
+    <string name="password">123456789</string>
+    <string name="txt_products_btn_add_products">Agregar Producto</string>
+</resources>

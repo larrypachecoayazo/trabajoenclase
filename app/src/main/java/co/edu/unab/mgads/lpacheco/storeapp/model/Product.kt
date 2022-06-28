@@ -1,12 +1,14 @@
 package co.edu.unab.mgads.lpacheco.storeapp.model
 
- data class Product(
+import java.io.Serializable
+
+data class Product(
     var name: String,
     val price:Int=0,
     val urlImage:String="http://campusvirtual.unicordoba.edu.co/wp-content/uploads/2022/06/packages.png",
     val description:String="",
     val status: ProductStatus = ProductStatus.AVAILABLE
- ) {
+ ):Serializable {
 
     var discount:Int=0
 

@@ -1,5 +1,6 @@
 package co.edu.unab.mgads.lpacheco.storeapp.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -37,6 +38,12 @@ class ProductListActivity : AppCompatActivity() {
 
         viewModel.adapter.onItemClickListener = {
             System.out.println(it.name)
+
+            val intentDetail = Intent(applicationContext, ProductDetailActivity::class.java)
+            intentDetail.putExtra("product", it)
+            startActivity(intentDetail)
+
+
         }
     }
 }

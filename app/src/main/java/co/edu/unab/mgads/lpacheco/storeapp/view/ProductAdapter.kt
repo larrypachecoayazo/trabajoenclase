@@ -23,8 +23,6 @@ class ProductAdapter(private var products:MutableList<Product>): RecyclerView.Ad
 
             binding.product= myProduct
 
-            Glide.with(binding.root.context).load(myProduct.urlImage).into(binding.ivProductItem)
-
             binding.root.setOnClickListener {
                 onItemClickListener?.let {
                     it(myProduct)

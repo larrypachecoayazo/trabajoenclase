@@ -1,4 +1,4 @@
-package co.edu.unab.mgads.lpacheco.storeapp.model
+package co.edu.unab.mgads.lpacheco.storeapp.model.entity
 
 class Client(
     val cart: List<Product>?= listOf(),

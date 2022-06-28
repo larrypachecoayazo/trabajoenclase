@@ -3,8 +3,8 @@ package co.edu.unab.mgads.lpacheco.storeapp.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import co.edu.unab.mgads.lpacheco.storeapp.R
-import co.edu.unab.mgads.lpacheco.storeapp.model.Client
-import co.edu.unab.mgads.lpacheco.storeapp.model.Product
+import co.edu.unab.mgads.lpacheco.storeapp.model.entity.Client
+import co.edu.unab.mgads.lpacheco.storeapp.model.entity.Product
 import co.edu.unab.mgads.lpacheco.storeapp.model.ProductStatus
 import kotlin.random.Random
 
@@ -101,8 +101,8 @@ class KotlinActivity : AppCompatActivity() {
             println("Login exitoso")
         }
 
-        val portatil = Product("Portatil", 250000, "Portatil ASUS", status=ProductStatus.AVAILABLE)
-        val portatil2 = Product("Portatil", 250000, "Portatil ASUS", status=ProductStatus.AVAILABLE)
+        val portatil = Product(name="Portatil", price=250000, description = "Portatil ASUS", status=ProductStatus.AVAILABLE)
+        val portatil2 = Product(name="Portatil", price=250000, description = "Portatil ASUS", status=ProductStatus.AVAILABLE)
 
         val equalsClass:Boolean = portatil == portatil2
         println("Igualdad: ${equalsClass}")

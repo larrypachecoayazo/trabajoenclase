@@ -6,7 +6,7 @@
     <data>
         <!--<variable
             name="user"
-            type="co.edu.unab.mgads.lpacheco.storeapp.model.User" />-->
+            type="co.edu.unab.mgads.lpacheco.storeapp.model.entities.User" />-->
 
         <variable
             name="viewModel"

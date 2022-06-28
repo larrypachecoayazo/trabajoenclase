@@ -6,8 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import co.edu.unab.mgads.lpacheco.storeapp.R
 import co.edu.unab.mgads.lpacheco.storeapp.databinding.ProductItemBinding
-import co.edu.unab.mgads.lpacheco.storeapp.model.Product
-import com.bumptech.glide.Glide
+import co.edu.unab.mgads.lpacheco.storeapp.model.entity.Product
 
 class ProductAdapter(private var products:MutableList<Product>): RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 

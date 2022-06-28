@@ -1,26 +1,26 @@
 package co.edu.unab.mgads.lpacheco.storeapp.viewmodel
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import co.edu.unab.mgads.lpacheco.storeapp.view.ProductAdapter
-import co.edu.unab.mgads.lpacheco.storeapp.model.Product
+import co.edu.unab.mgads.lpacheco.storeapp.model.entity.Product
+import co.edu.unab.mgads.lpacheco.storeapp.model.repository.ProductRepository
 
-class ProductListActivityViewModel: ViewModel() {
+class ProductListActivityViewModel(application: Application): AndroidViewModel(application) {
 
-    private val products: MutableList<Product> = arrayListOf()
+    private var products: MutableList<Product> = mutableListOf()
     var adapter: ProductAdapter = ProductAdapter(products)
+    private val productRepository:ProductRepository = ProductRepository(application)
 
     fun loadProducts(){
-        products.apply {
-            clear()
-            add(Product(name = "Monitor", price = 350000))
-            add(Product(name = "Teclado", price = 60000))
-            add(Product(name = "Disco Duro", price = 250000))
-            add(Product(name = "USB", price = 50000))
-            add(Product(name = "Portatil", price = 350000))
-        }
+
+        products = productRepository.getAllLocal()
+
     }
 
     fun refreshData(){
         adapter.refresh(products)
     }
+
 }

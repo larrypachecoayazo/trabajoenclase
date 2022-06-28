@@ -1,7 +1,7 @@
 package co.edu.unab.mgads.lpacheco.storeapp.viewmodel
 
 import androidx.lifecycle.ViewModel
-import co.edu.unab.mgads.lpacheco.storeapp.model.User
+import co.edu.unab.mgads.lpacheco.storeapp.model.entity.User
 
 class MainActivityViewModel: ViewModel() {
 

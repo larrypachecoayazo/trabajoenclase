@@ -1,10 +1,9 @@
-package co.edu.unab.mgads.lpacheco.storeapp
+package co.edu.unab.mgads.lpacheco.storeapp.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import co.edu.unab.mgads.lpacheco.storeapp.databinding.ActivityMainBinding
+import co.edu.unab.mgads.lpacheco.storeapp.R
 import co.edu.unab.mgads.lpacheco.storeapp.databinding.ActivityPruebaBinding
 
 class PruebaActivity : AppCompatActivity() {

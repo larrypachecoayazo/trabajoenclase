@@ -1,4 +1,4 @@
-package co.edu.unab.mgads.lpacheco.storeapp
+package co.edu.unab.mgads.lpacheco.storeapp.model
 
 open class User(var name:String, var password:String) {
 

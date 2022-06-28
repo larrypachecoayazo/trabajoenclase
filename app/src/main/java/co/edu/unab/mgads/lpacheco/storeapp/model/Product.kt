@@ -1,12 +1,15 @@
-package co.edu.unab.mgads.lpacheco.storeapp
+package co.edu.unab.mgads.lpacheco.storeapp.model
 
  data class Product(
     var name: String,
     val price:Int=0,
+    val urlImage:String="http://campusvirtual.unicordoba.edu.co/wp-content/uploads/2022/06/packages.png",
     val description:String="",
-    val status: ProductStatus = ProductStatus.AVAILABLE ) {
+    val status: ProductStatus = ProductStatus.AVAILABLE
+ ) {
 
     var discount:Int=0
+
     init {
         discount = price - 10000
 

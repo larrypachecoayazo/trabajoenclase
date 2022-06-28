@@ -1,10 +1,10 @@
-package co.edu.unab.mgads.lpacheco.storeapp
+package co.edu.unab.mgads.lpacheco.storeapp.model
 
 class Client(
     val cart: List<Product>?= listOf(),
     name: String,
     password: String
-):User(
+): User(
     name,
     password
 ) {

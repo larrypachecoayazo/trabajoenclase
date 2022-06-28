@@ -1,10 +1,11 @@
-package co.edu.unab.mgads.lpacheco.storeapp
+package co.edu.unab.mgads.lpacheco.storeapp.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import co.edu.unab.mgads.lpacheco.storeapp.viewmodel.ProductListActivityViewModel
+import co.edu.unab.mgads.lpacheco.storeapp.R
 import co.edu.unab.mgads.lpacheco.storeapp.databinding.ActivityProductListBinding
 
 class ProductListActivity : AppCompatActivity() {
@@ -19,7 +20,10 @@ class ProductListActivity : AppCompatActivity() {
         var message:String?= intent.getStringExtra("message")
         var data:String?= intent.getStringExtra("data")
 
-        title = "$message $data"
+        message?.let {
+            title = "$message $data"
+        }
+
 
         bindind = DataBindingUtil.setContentView(this, R.layout.activity_product_list)
 

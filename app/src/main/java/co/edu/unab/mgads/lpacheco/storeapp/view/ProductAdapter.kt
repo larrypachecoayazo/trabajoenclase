@@ -1,10 +1,13 @@
-package co.edu.unab.mgads.lpacheco.storeapp
+package co.edu.unab.mgads.lpacheco.storeapp.view
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import co.edu.unab.mgads.lpacheco.storeapp.R
 import co.edu.unab.mgads.lpacheco.storeapp.databinding.ProductItemBinding
+import co.edu.unab.mgads.lpacheco.storeapp.model.Product
+import com.bumptech.glide.Glide
 
 class ProductAdapter(private var products:MutableList<Product>): RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
@@ -19,6 +22,8 @@ class ProductAdapter(private var products:MutableList<Product>): RecyclerView.Ad
         fun bind(myProduct: Product, onItemClickListener: ((Product) -> Unit)?){
 
             binding.product= myProduct
+
+            Glide.with(binding.root.context).load(myProduct.urlImage).into(binding.ivProductItem)
 
             binding.root.setOnClickListener {
                 onItemClickListener?.let {

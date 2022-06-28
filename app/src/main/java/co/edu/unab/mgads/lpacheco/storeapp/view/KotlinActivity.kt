@@ -1,8 +1,11 @@
-package co.edu.unab.mgads.lpacheco.storeapp
+package co.edu.unab.mgads.lpacheco.storeapp.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import java.util.*
+import co.edu.unab.mgads.lpacheco.storeapp.R
+import co.edu.unab.mgads.lpacheco.storeapp.model.Client
+import co.edu.unab.mgads.lpacheco.storeapp.model.Product
+import co.edu.unab.mgads.lpacheco.storeapp.model.ProductStatus
 import kotlin.random.Random
 
 class KotlinActivity : AppCompatActivity() {
@@ -98,15 +101,15 @@ class KotlinActivity : AppCompatActivity() {
             println("Login exitoso")
         }
 
-        val portatil = Product("Portatil", 250000, "Portatil ASUS", ProductStatus.AVAILABLE)
-        val portatil2 = Product("Portatil", 250000, "Portatil ASUS", ProductStatus.AVAILABLE)
+        val portatil = Product("Portatil", 250000, "Portatil ASUS", status=ProductStatus.AVAILABLE)
+        val portatil2 = Product("Portatil", 250000, "Portatil ASUS", status=ProductStatus.AVAILABLE)
 
         val equalsClass:Boolean = portatil == portatil2
         println("Igualdad: ${equalsClass}")
 
         val (n, p, d, s) = portatil
 
-        val myClient:Client = Client(name="larpax@gmail.com", password = "123456789")
+        val myClient: Client = Client(name="larpax@gmail.com", password = "123456789")
         // myClient.login("", "")
 
 
@@ -115,7 +118,7 @@ class KotlinActivity : AppCompatActivity() {
         println("Serialiada: " + portatil.toString())
         println(portatil.discount)
 
-        var myClient2:Client = Client(name="larry@gmail.com", password = "12345678")
+        var myClient2: Client = Client(name="larry@gmail.com", password = "12345678")
 //        myClient2.login()
 
 
@@ -127,7 +130,9 @@ class KotlinActivity : AppCompatActivity() {
         println("El producto ${name} tiene un precio de ${price}")
     }
 
-    fun login(email: String, password: String) : Boolean = email == getString(R.string.email) && password == getString(R.string.password)
+    fun login(email: String, password: String) : Boolean = email == getString(R.string.email) && password == getString(
+        R.string.password
+    )
 
     fun clickListener(click:(String)->Boolean) {
         click("Hola")

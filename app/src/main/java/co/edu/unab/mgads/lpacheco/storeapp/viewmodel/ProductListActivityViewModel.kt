@@ -1,11 +1,13 @@
-package co.edu.unab.mgads.lpacheco.storeapp
+package co.edu.unab.mgads.lpacheco.storeapp.viewmodel
 
 import androidx.lifecycle.ViewModel
+import co.edu.unab.mgads.lpacheco.storeapp.view.ProductAdapter
+import co.edu.unab.mgads.lpacheco.storeapp.model.Product
 
 class ProductListActivityViewModel: ViewModel() {
 
     private val products: MutableList<Product> = arrayListOf()
-    var adapter:ProductAdapter = ProductAdapter(products)
+    var adapter: ProductAdapter = ProductAdapter(products)
 
     fun loadProducts(){
         products.apply {

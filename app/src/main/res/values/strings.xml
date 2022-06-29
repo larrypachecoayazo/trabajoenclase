@@ -7,4 +7,12 @@
     <string name="email">larpax@gmail.com</string>
     <string name="password">123456789</string>
     <string name="txt_products_btn_add_products">Agregar Producto</string>
+    <string name="tv_product_add_titule">Crear cuenta</string>
+    <string name="hint_add_product_name">Escriba el nombre</string>
+    <string name="hint_add_product_price">Escriba el precio</string>
+    <string name="hint_add_product_url_image">URL de la imágen</string>
+    <string name="hint_add_product_password">Escriba la contraseña</string>
+    <string name="txt_add_product_btn_agregar">Agregar Producto</string>
+    <string name="txt_add_product_btn_regresar">Regresar</string>
+    <string name="hint_add_product_ed_description">Descripción</string>
 </resources>

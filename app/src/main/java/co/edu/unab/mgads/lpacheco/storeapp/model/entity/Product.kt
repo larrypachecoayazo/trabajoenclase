@@ -14,14 +14,14 @@ data class Product(
 
     var name: String,
 
-    val price:Int=0,
+    var price:Int=0,
 
     @ColumnInfo(name = "url_image")
-    val urlImage:String="http://campusvirtual.unicordoba.edu.co/wp-content/uploads/2022/06/packages.png",
+    var urlImage:String="http://campusvirtual.unicordoba.edu.co/wp-content/uploads/2022/06/packages.png",
 
-    val description:String="",
+    var description:String="",
 
-    val status: ProductStatus = ProductStatus.AVAILABLE
+    var status: ProductStatus = ProductStatus.AVAILABLE
 
  ):Serializable {
 

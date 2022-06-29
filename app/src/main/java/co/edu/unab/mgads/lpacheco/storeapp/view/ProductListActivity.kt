@@ -47,5 +47,9 @@ class ProductListActivity : AppCompatActivity() {
             adapter.refresh(viewModel.products)
             System.out.println("Eliminados....")
         }
+
+        bindind.btnAddProduct.setOnClickListener {
+            startActivity(Intent(applicationContext, ProductAddActivity::class.java))
+        }
     }
 }

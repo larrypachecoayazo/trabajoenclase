@@ -39,7 +39,7 @@ class ProductRepository(myContext:Context) {
         return productDAO.getbykey(key)
     }
 
-    fun add(myProduct: Product){
+    fun addLocal(myProduct: Product){
         productDAO.add(myProduct)
         loadAllLocal()
     }

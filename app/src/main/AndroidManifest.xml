@@ -13,11 +13,14 @@
         android:theme="@style/Theme.StoreApp"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.ProductAddActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.ProductDetailActivity"
             android:exported="false" />
         <activity
             android:name=".view.PruebaActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".view.ProductListActivity"
             android:exported="true">
@@ -32,7 +35,7 @@
             android:exported="false" />
         <activity
             android:name=".view.MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>

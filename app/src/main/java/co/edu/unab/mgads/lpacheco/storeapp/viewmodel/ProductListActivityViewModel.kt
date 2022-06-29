@@ -9,18 +9,23 @@ import co.edu.unab.mgads.lpacheco.storeapp.model.repository.ProductRepository
 
 class ProductListActivityViewModel(application: Application): AndroidViewModel(application) {
 
-    private var products: MutableList<Product> = mutableListOf()
-    var adapter: ProductAdapter = ProductAdapter(products)
+    var products: MutableList<Product> = mutableListOf()
+
     private val productRepository:ProductRepository = ProductRepository(application)
 
+    init {
+        loadProducts()
+    }
+
     fun loadProducts(){
-
         products = productRepository.getAllLocal()
-
     }
 
-    fun refreshData(){
-        adapter.refresh(products)
+    fun deleteProduct(myProduct:Product){
+        productRepository.deleteLocal(myProduct)
+        loadProducts()
     }
+
+
 
 }

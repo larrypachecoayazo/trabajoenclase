@@ -11,14 +11,20 @@ import co.edu.unab.mgads.lpacheco.storeapp.model.entity.Product
 class ProductAdapter(private var products:MutableList<Product>): RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     var onItemClickListener :((Product)->Unit)?=null
+    var onItemLongClickListener :((Product)->Unit)?=null
 
     fun refresh(myProducts: MutableList<Product>){
         products=myProducts
+        notifyDataSetChanged()
     }
 
     class ProductViewHolder(private val binding: ProductItemBinding): RecyclerView.ViewHolder(binding.root){
 
-        fun bind(myProduct: Product, onItemClickListener: ((Product) -> Unit)?){
+        fun bind(
+            myProduct: Product,
+            onItemClickListener: ((Product) -> Unit)?,
+            onItemLongClickListener: ((Product) -> Unit)?
+        ){
 
             binding.product= myProduct
 
@@ -26,6 +32,13 @@ class ProductAdapter(private var products:MutableList<Product>): RecyclerView.Ad
                 onItemClickListener?.let {
                     it(myProduct)
                 }
+            }
+
+            binding.root.setOnLongClickListener{
+                onItemLongClickListener?.let {
+                    it(myProduct)
+                }
+                true
             }
 
         }
@@ -46,7 +59,7 @@ class ProductAdapter(private var products:MutableList<Product>): RecyclerView.Ad
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.bind(products[position], onItemClickListener)
+        holder.bind(products[position], onItemClickListener, onItemLongClickListener)
     }
 
     override fun getItemCount(): Int = products.size

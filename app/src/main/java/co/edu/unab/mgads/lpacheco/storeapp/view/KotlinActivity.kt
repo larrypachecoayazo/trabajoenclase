@@ -116,7 +116,7 @@ class KotlinActivity : AppCompatActivity() {
         println(portatil)
         portatil.name = "Teclado"
         println("Serialiada: " + portatil.toString())
-        println(portatil.discount)
+        //println(portatil.discount)
 
         var myClient2: Client = Client(name="larry@gmail.com", password = "12345678")
 //        myClient2.login()

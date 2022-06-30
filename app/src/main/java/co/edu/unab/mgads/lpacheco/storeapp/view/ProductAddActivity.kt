@@ -14,7 +14,7 @@ class ProductAddActivity : AppCompatActivity() {
 
     lateinit var binding:ActivityProductAddBinding
     lateinit var viewModel: ProductAddActivityViewModel
-    lateinit var myProduct: Product
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,12 +22,12 @@ class ProductAddActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_add)
 
-        myProduct = Product(name = "", price = 0)
-
         viewModel = ViewModelProvider(this)[ProductAddActivityViewModel::class.java]
 
+        binding.viewModel = viewModel
+
         binding.btnAddProductBtnAgregar.setOnClickListener {
-            viewModel.add(binding.product)
+            viewModel.add()
             finish()
         }
 

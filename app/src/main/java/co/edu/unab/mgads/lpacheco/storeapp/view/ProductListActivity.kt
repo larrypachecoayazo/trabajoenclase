@@ -52,4 +52,10 @@ class ProductListActivity : AppCompatActivity() {
             startActivity(Intent(applicationContext, ProductAddActivity::class.java))
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadProducts()
+        adapter.refresh(viewModel.products)
+    }
 }

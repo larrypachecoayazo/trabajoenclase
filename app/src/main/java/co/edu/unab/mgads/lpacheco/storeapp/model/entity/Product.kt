@@ -25,18 +25,16 @@ data class Product(
 
  ):Serializable {
 
-    var discount:Int=0
-
-    init {
+    /*init {
         discount = price - 10000
 
         println("El producto ${name} vale ${price}")
         println("Valor del estado ${status.value}")
         println("Valor getValues(): " + status.geValues())
-    }
+    }*/
 
     override fun toString(): String {
-        return "Product(name='$name', price=$price, description='$description', discount=$discount)"
+        return "Product(name: '$name', price: '$price', description: '$description', url: '$urlImage')"
     }
 
 

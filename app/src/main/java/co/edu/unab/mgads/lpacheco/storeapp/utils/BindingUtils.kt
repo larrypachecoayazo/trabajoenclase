@@ -17,5 +17,8 @@ fun intToString(value:Int):String{
 
 @InverseMethod("intToString")
 fun stringToInt(value:String):Int{
+    if (value==""){
+        return 0
+    }
     return Integer.parseInt(value)
 }

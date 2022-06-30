@@ -8,8 +8,9 @@ import co.edu.unab.mgads.lpacheco.storeapp.model.repository.ProductRepository
 class ProductAddActivityViewModel(application: Application): AndroidViewModel(application) {
 
     private val productRepository:ProductRepository = ProductRepository(application)
+    var product = Product(name = "", price = 0)
 
-    fun add(myProduct:Product){
-        productRepository.addLocal(myProduct)
+    fun add(){
+        productRepository.addLocal(product)
     }
 }

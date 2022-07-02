@@ -13,4 +13,9 @@ class ProductAddActivityViewModel(application: Application): AndroidViewModel(ap
     fun add(){
         productRepository.addLocal(product)
     }
+
+    fun edit() {
+
+        productRepository.updateLocal(product)
+    }
 }

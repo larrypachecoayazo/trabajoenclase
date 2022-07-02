@@ -79,7 +79,7 @@
             android:layout_width="match_parent"
             android:layout_marginHorizontal="48dp"
             android:hint="@string/hint_add_product_url_image"
-            android:text="@{viewModel.product.urlImage}"
+            android:text="@={viewModel.product.urlImage}"
             />
 
 

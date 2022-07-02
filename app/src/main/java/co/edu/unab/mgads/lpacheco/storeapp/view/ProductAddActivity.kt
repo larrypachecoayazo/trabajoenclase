@@ -20,15 +20,37 @@ class ProductAddActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val myProduct:Product?= intent.getSerializableExtra("product") as Product
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_add)
 
         viewModel = ViewModelProvider(this)[ProductAddActivityViewModel::class.java]
 
         binding.viewModel = viewModel
 
-        binding.btnAddProductBtnAgregar.setOnClickListener {
-            viewModel.add()
-            finish()
+        System.out.println(myProduct.toString())
+
+        myProduct?.let {
+
+            System.out.println(it)
+
+            binding.tvProductAddTitulo.text = "Editar producto"
+            binding.btnAddProductBtnAgregar.text = "Actualizar"
+
+            viewModel.product = it
+
+            binding.btnAddProductBtnAgregar.setOnClickListener {
+                System.out.println("Edit()")
+                viewModel.edit()
+                finish()
+            }
+
+        }?:run{
+            binding.btnAddProductBtnAgregar.setOnClickListener {
+                System.out.println("Add()")
+                viewModel.add()
+                finish()
+            }
         }
 
 

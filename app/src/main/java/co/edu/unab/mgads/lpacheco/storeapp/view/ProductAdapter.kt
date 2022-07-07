@@ -8,25 +8,31 @@ import co.edu.unab.mgads.lpacheco.storeapp.R
 import co.edu.unab.mgads.lpacheco.storeapp.databinding.ProductItemBinding
 import co.edu.unab.mgads.lpacheco.storeapp.model.entity.Product
 
-class ProductAdapter(private var products:MutableList<Product>): RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
+class ProductAdapter(
+    private var products: MutableList<Product>
+    ) :
+    RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
-    var onItemClickListener :((Product)->Unit)?=null
-    var onItemLongClickListener :((Product)->Unit)?=null
 
-    fun refresh(myProducts: MutableList<Product>){
-        products=myProducts
+    var onItemClickListener: ((Product) -> Unit)? = null
+    var onItemLongClickListener: ((Product) -> Unit)? = null
+
+
+    fun refresh(myProducts: MutableList<Product>) {
+        products = myProducts
         notifyDataSetChanged()
     }
 
-    class ProductViewHolder(private val binding: ProductItemBinding): RecyclerView.ViewHolder(binding.root){
+    class ProductViewHolder(private val binding: ProductItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
             myProduct: Product,
             onItemClickListener: ((Product) -> Unit)?,
             onItemLongClickListener: ((Product) -> Unit)?
-        ){
+        ) {
 
-            binding.product= myProduct
+            binding.product = myProduct
 
             binding.root.setOnClickListener {
                 onItemClickListener?.let {
@@ -34,7 +40,7 @@ class ProductAdapter(private var products:MutableList<Product>): RecyclerView.Ad
                 }
             }
 
-            binding.root.setOnLongClickListener{
+            binding.root.setOnLongClickListener {
                 onItemLongClickListener?.let {
                     it(myProduct)
                 }
@@ -49,7 +55,7 @@ class ProductAdapter(private var products:MutableList<Product>): RecyclerView.Ad
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
 
         val inflate = LayoutInflater.from(parent.context)
-        val binding:ProductItemBinding = DataBindingUtil.inflate(
+        val binding: ProductItemBinding = DataBindingUtil.inflate(
             inflate,
             R.layout.product_item,
             parent,

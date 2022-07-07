@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import co.edu.unab.mgads.lpacheco.storeapp.viewmodel.ProductListActivityViewModel
 import co.edu.unab.mgads.lpacheco.storeapp.R
 import co.edu.unab.mgads.lpacheco.storeapp.databinding.ActivityProductListBinding
+import co.edu.unab.mgads.lpacheco.storeapp.model.entity.Product
 
 class ProductListActivity : AppCompatActivity() {
 
@@ -32,20 +33,27 @@ class ProductListActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this)[ProductListActivityViewModel::class.java]
 
-        adapter = ProductAdapter(viewModel.products)
+        adapter = ProductAdapter(arrayListOf())
         bindind.adapter = adapter
+
+        viewModel.products.observe(this, {
+            if (it.isEmpty()){
+                viewModel.loadFakeDake()
+            }
+            adapter.refresh(it as MutableList<Product>)
+        })
 
 
         adapter.onItemClickListener = {
+            System.out.println(it.toString())
             val intentDetail = Intent(applicationContext, ProductDetailActivity::class.java)
-            intentDetail.putExtra("product", it)
+            intentDetail.putExtra("product_key", it.key)
             startActivity(intentDetail)
         }
 
         adapter.onItemLongClickListener = {
             viewModel.deleteProduct(it)
-            adapter.refresh(viewModel.products)
-            System.out.println("Eliminados....")
+            // adapter.refresh(viewModel.products)
         }
 
         bindind.btnAddProduct.setOnClickListener {
@@ -55,7 +63,7 @@ class ProductListActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.loadProducts()
-        adapter.refresh(viewModel.products)
+        // viewModel.loadProducts()
+        // adapter.refresh(viewModel.products)
     }
 }

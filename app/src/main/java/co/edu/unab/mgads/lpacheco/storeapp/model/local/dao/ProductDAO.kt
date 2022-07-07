@@ -1,16 +1,18 @@
 package co.edu.unab.mgads.lpacheco.storeapp.model.local.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import co.edu.unab.mgads.lpacheco.storeapp.model.entity.Product
 
 @Dao
 interface ProductDAO {
 
+    // fun getAll():LiveData<List<Product>>
     @Query("select * from products")
-    fun getAll():List<Product>
+    fun getAll():LiveData<List<Product>>
 
     @Query("select * from products where `key` = :keyValue")
-    fun getbykey(keyValue:Int):Product
+    fun getBykey(keyValue:Int):LiveData<Product>
 
     @Insert
     fun add(MyProduct:Product)

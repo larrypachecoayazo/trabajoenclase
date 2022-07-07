@@ -20,7 +20,7 @@ class ProductAddActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val myProduct:Product?= intent.getSerializableExtra("product") as Product
+        val myProduct:Product?= intent.getSerializableExtra("product") as Product?
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_add)
 
@@ -28,11 +28,7 @@ class ProductAddActivity : AppCompatActivity() {
 
         binding.viewModel = viewModel
 
-        System.out.println(myProduct.toString())
-
         myProduct?.let {
-
-            System.out.println(it)
 
             binding.tvProductAddTitulo.text = "Editar producto"
             binding.btnAddProductBtnAgregar.text = "Actualizar"

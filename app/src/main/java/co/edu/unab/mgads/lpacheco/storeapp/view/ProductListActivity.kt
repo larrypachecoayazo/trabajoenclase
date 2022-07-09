@@ -36,16 +36,8 @@ class ProductListActivity : AppCompatActivity() {
         adapter = ProductAdapter(arrayListOf())
         bindind.adapter = adapter
 
-        viewModel.products.observe(this, {
-            if (it.isEmpty()){
-                viewModel.loadFakeDake()
-            }
-            adapter.refresh(it as MutableList<Product>)
-        })
-
 
         adapter.onItemClickListener = {
-            System.out.println(it.toString())
             val intentDetail = Intent(applicationContext, ProductDetailActivity::class.java)
             intentDetail.putExtra("product_key", it.key)
             startActivity(intentDetail)
@@ -61,9 +53,17 @@ class ProductListActivity : AppCompatActivity() {
         }
     }
 
+    private fun loadProducts(){
+        viewModel.products.observe(this, {
+            if (it.isEmpty()){
+                viewModel.loadFakeDake()
+            }
+            adapter.refresh(it as MutableList<Product>)
+        })
+    }
+
     override fun onResume() {
         super.onResume()
-        // viewModel.loadProducts()
-        // adapter.refresh(viewModel.products)
+        loadProducts()
     }
 }

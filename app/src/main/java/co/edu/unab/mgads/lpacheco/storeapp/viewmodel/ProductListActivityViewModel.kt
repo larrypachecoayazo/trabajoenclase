@@ -24,4 +24,5 @@ class ProductListActivityViewModel(application: Application): AndroidViewModel(a
     }
 
 
+
 }

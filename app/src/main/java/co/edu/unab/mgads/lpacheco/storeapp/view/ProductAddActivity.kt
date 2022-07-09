@@ -43,7 +43,6 @@ class ProductAddActivity : AppCompatActivity() {
 
         }?:run{
             binding.btnAddProductBtnAgregar.setOnClickListener {
-                System.out.println("Add()")
                 viewModel.add()
                 finish()
             }

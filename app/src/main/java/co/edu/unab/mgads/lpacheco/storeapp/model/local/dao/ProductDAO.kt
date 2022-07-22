@@ -7,12 +7,12 @@ import co.edu.unab.mgads.lpacheco.storeapp.model.entity.Product
 @Dao
 interface ProductDAO {
 
-    // fun getAll():LiveData<List<Product>>
+
     @Query("select * from products")
-    fun getAll():LiveData<List<Product>>
+    fun getAll():List<Product>
 
     @Query("select * from products where `key` = :keyValue")
-    fun getBykey(keyValue:Int):LiveData<Product>
+    fun getBykey(keyValue:Int):Product
 
     @Insert
     fun add(MyProduct:Product)
@@ -22,7 +22,5 @@ interface ProductDAO {
 
     @Delete
     fun delete(MyProduct:Product)
-
-
 
 }

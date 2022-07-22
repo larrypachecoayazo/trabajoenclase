@@ -15,4 +15,5 @@
     <string name="txt_add_product_btn_agregar">Agregar Producto</string>
     <string name="txt_add_product_btn_regresar">Regresar</string>
     <string name="hint_add_product_ed_description">Descripción</string>
+    <string name="main_menu_item_cerrar_sesi_n">Cerrar sesión</string>
 </resources>

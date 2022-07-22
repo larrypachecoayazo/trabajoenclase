@@ -25,11 +25,11 @@ class ProductDetailActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[ProductDetailActivityViewModel::class.java]
         viewModel.getProductByKey(myProductId)
 
-        binding.product = viewModel.product
+        binding.product = viewModel.product.value
 
         binding.btnProductDetailEdit.setOnClickListener {
             val intentAdd = Intent(applicationContext, ProductAddActivity::class.java)
-            intentAdd.putExtra("product", viewModel.product)
+            intentAdd.putExtra("product", viewModel.product.value)
             startActivity(intentAdd)
         }
 
@@ -41,7 +41,7 @@ class ProductDetailActivity : AppCompatActivity() {
 
     override fun onResume() {
         viewModel.getProductByKey(myProductId)
-        binding.product = viewModel.product
+        binding.product = viewModel.product.value
         super.onResume()
     }
 }

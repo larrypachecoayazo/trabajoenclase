@@ -8,21 +8,14 @@ import java.io.Serializable
 
 @Entity(tableName = "products")
 data class Product(
-
     @PrimaryKey(autoGenerate = true)
     var key :Int?=null,
-
     var name: String,
-
     var price:Int=0,
-
     @ColumnInfo(name = "url_image")
     var urlImage:String="http://campusvirtual.unicordoba.edu.co/wp-content/uploads/2022/06/packages.png",
-
     var description:String="",
-
     var status: ProductStatus = ProductStatus.AVAILABLE
-
  ):Serializable {
 
     /*init {
@@ -36,6 +29,5 @@ data class Product(
     override fun toString(): String {
         return "Product(key: '$key', name: '$name', price: '$price', description: '$description', url: '$urlImage')"
     }
-
 
 }

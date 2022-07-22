@@ -1,8 +1,11 @@
 package co.edu.unab.mgads.lpacheco.storeapp.view
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -36,6 +39,8 @@ class ProductListActivity : AppCompatActivity() {
         adapter = ProductAdapter(arrayListOf())
         bindind.adapter = adapter
 
+        loadProducts()
+
 
         adapter.onItemClickListener = {
             val intentDetail = Intent(applicationContext, ProductDetailActivity::class.java)
@@ -45,7 +50,6 @@ class ProductListActivity : AppCompatActivity() {
 
         adapter.onItemLongClickListener = {
             viewModel.deleteProduct(it)
-            // adapter.refresh(viewModel.products)
         }
 
         bindind.btnAddProduct.setOnClickListener {
@@ -58,12 +62,38 @@ class ProductListActivity : AppCompatActivity() {
             if (it.isEmpty()){
                 viewModel.loadFakeDake()
             }
-            adapter.refresh(it as MutableList<Product>)
+            adapter.refresh(it as ArrayList<Product>)
         })
     }
 
     override fun onResume() {
+        viewModel.loadProducts()
         super.onResume()
-        loadProducts()
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.menu_logout -> {
+                logout()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun logout(){
+        val preferences: SharedPreferences = getSharedPreferences("store_app.pref", MODE_PRIVATE)
+        var editor = preferences.edit()
+        editor.clear()
+        editor.apply()
+
+        val intent = Intent(applicationContext, MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+    }
+
 }

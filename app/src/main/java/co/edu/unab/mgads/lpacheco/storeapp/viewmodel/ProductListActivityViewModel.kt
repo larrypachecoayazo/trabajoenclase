@@ -4,8 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import co.edu.unab.mgads.lpacheco.storeapp.view.ProductAdapter
 import co.edu.unab.mgads.lpacheco.storeapp.model.entity.Product
 import co.edu.unab.mgads.lpacheco.storeapp.model.repository.ProductRepository
 
@@ -14,13 +12,14 @@ class ProductListActivityViewModel(application: Application): AndroidViewModel(a
 
     private val productRepository:ProductRepository = ProductRepository(application)
 
-    var products:LiveData<List<Product>> = productRepository.products
+    var products:LiveData<List<Product>> = productRepository.productsObserver
 
     var productVariable:LiveData<Product> = MutableLiveData()
 
 
     fun deleteProduct(myProduct:Product){
-        productRepository.deleteLocal(myProduct)
+        // productRepository.deleteLocal(myProduct)
+        productRepository.deleteFirstone(myProduct)
     }
 
     fun loadFakeDake(){
@@ -28,7 +27,8 @@ class ProductListActivityViewModel(application: Application): AndroidViewModel(a
     }
 
     fun loadProducts(){
-        productRepository.loadAllLocal()
+        // productRepository.loadAllLocal()
+        productRepository.loadAllFirestone()
     }
 
 

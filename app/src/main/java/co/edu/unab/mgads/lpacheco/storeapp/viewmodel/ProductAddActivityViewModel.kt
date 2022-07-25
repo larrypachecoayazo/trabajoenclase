@@ -11,11 +11,13 @@ class ProductAddActivityViewModel(application: Application): AndroidViewModel(ap
     var product = Product(name = "", price = 0)
 
     fun add(){
-        productRepository.addLocal(product)
+        // productRepository.addLocal(product)
+        productRepository.addFirestone(product)
     }
 
     fun edit() {
-        productRepository.updateLocal(product)
+        // productRepository.updateLocal(product)
+        productRepository.updateFirestone(product)
     }
 
 

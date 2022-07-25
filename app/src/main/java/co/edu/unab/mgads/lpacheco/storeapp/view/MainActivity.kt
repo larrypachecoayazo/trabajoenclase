@@ -53,42 +53,37 @@ class MainActivity : AppCompatActivity() {
         // binding.user = myClient
 
 
-        Toast.makeText(this, "Error Login", Toast.LENGTH_SHORT).show()
+        // Toast.makeText(this, "Error Login", Toast.LENGTH_SHORT).show()
+
+        binding.loginBtnSignup.setOnClickListener {
+            val intent = Intent(applicationContext, SiginupActivity::class.java)
+            startActivity(intent)
+        }
 
 
         binding.loginBtnLogin.setOnClickListener {
 
-
-
-
-            if (viewModel.login()) {
-
-                val preferences:SharedPreferences = getSharedPreferences("store_app.pref", MODE_PRIVATE)
-                var editor:SharedPreferences.Editor = preferences.edit()
-                editor.putBoolean("login", true)
-                editor.apply()
-
-                // Toast.makeText(this, "Login exitoso", Toast.LENGTH_SHORT,).show()
-
-                val intent = Intent(applicationContext, ProductListActivity::class.java)
-                intent.putExtra("mensaje", "Hola")
-                intent.putExtra("data", viewModel.user.name)
-                startActivity(intent)
-            } else{
-                System.out.println("No")
-                // Toast.makeText(this, "Error Login", Toast.LENGTH_SHORT).show()
+            viewModel.login().observe(this) {
+                it?.let {
+                    login()
+                }?:run{
+                    Toast.makeText(this, "Datos de autenticación inválidos", Toast.LENGTH_SHORT).show()
+                }
             }
-
-            /*
-            if ((binding.user?.name == getString(R.string.email)) &&
-                (binding.user?.password == getString(R.string.password))) {
-                Toast.makeText(this, "Login exitoso", Toast.LENGTH_SHORT).show()
-            } else{
-                Toast.makeText(this, "Error Login", Toast.LENGTH_SHORT).show()
-            }
-            */
-
         }
+    }
 
+    private fun login(){
+        val preferences:SharedPreferences = getSharedPreferences("store_app.pref", MODE_PRIVATE)
+        var editor:SharedPreferences.Editor = preferences.edit()
+        editor.putBoolean("login", true)
+        editor.apply()
+
+        val intent = Intent(applicationContext, ProductListActivity::class.java)
+        intent.putExtra("mensaje", "Hola")
+        intent.putExtra("data", viewModel.user.name)
+        startActivity(intent)
+
+        finish()
     }
 }

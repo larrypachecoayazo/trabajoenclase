@@ -2,32 +2,46 @@ package co.edu.unab.mgads.lpacheco.storeapp.model.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import co.edu.unab.mgads.lpacheco.storeapp.model.ProductStatus
+import com.google.firebase.firestore.Exclude
+import com.google.firebase.firestore.PropertyName
 import java.io.Serializable
 
 @Entity(tableName = "products")
 data class Product(
     @PrimaryKey(autoGenerate = true)
+    @JvmField @Exclude
     var key :Int?=null,
-    var name: String,
+
+    @Ignore
+    @JvmField @Exclude
+    var id : String = "",
+
+    var name: String="",
+
     var price:Int=0,
+
     @ColumnInfo(name = "url_image")
+    @JvmField @PropertyName("url_image")
     var urlImage:String="http://campusvirtual.unicordoba.edu.co/wp-content/uploads/2022/06/packages.png",
+
     var description:String="",
+
     var status: ProductStatus = ProductStatus.AVAILABLE
+
  ):Serializable {
 
-    /*init {
-        discount = price - 10000
+    init {
+        println("Iniciando")
+    }
 
-        println("El producto ${name} vale ${price}")
-        println("Valor del estado ${status.value}")
-        println("Valor getValues(): " + status.geValues())
-    }*/
+    @Exclude
+    fun getShortInfo(): String = "$name - $$price"
 
     override fun toString(): String {
-        return "Product(key: '$key', name: '$name', price: '$price', description: '$description', url: '$urlImage')"
+        return "Product(id: '$id', key: '$key', name: '$name', price: '$price', description: '$description', urlImage: '$urlImage')"
     }
 
 }

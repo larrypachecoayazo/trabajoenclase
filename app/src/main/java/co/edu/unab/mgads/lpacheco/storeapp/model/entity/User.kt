@@ -1,9 +1,18 @@
 package co.edu.unab.mgads.lpacheco.storeapp.model.entity
 
-open class User(var name:String, var password:String) {
+import com.google.firebase.firestore.Exclude
+import com.google.firebase.firestore.PropertyName
 
-    open fun login():Boolean {
-        return name == "larry@gmail.com" && password == "12345678"
-    }
+open class User(
+    @JvmField @Exclude
+    var id: String = "",
+    var document: String = "",
+    var name: String = "",
+    var email: String = "",
+    @JvmField @PropertyName("url_photo")
+    var urlPhoto: String = "https://www.citypng.com/public/uploads/small/11639594314mvt074h0zt5cijvfdn7gqxbrya72bzqulyd5bhqhemb5iasfe7gbydmr2jxk8lcclcp6qrgaoiuiavf4sendwc3jvwadddqmli2d.png",
+    var password: String = ""
+) {
+
 
 }

@@ -14,11 +14,13 @@ class ProductAddActivityViewModel(application: Application): AndroidViewModel(ap
     fun add(): LiveData<String> {
         // productRepository.addLocal(product)
         return productRepository.addFirestone(product)
+        // return productRepository.addAPI(product)
     }
 
     fun edit(): LiveData<Boolean> {
         // productRepository.updateLocal(product)
         return productRepository.updateFirestone(product)
+        // return productRepository.updateAPI(product)
     }
 
 

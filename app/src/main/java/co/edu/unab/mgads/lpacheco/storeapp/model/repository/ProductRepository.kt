@@ -121,6 +121,22 @@ class ProductRepository(myContext:Context) {
             }
     }
 
+    fun getByIdAPI(id: String) {
+        productService.getById(id).enqueue(object : Callback<Product> {
+            override fun onResponse(call: Call<Product>, response: Response<Product>) {
+                response.body()?.let {
+                    it.id = id
+                    productObserver.value = it
+                }
+            }
+
+            override fun onFailure(call: Call<Product>, t: Throwable) {
+                productObserver.value = null
+            }
+
+        })
+    }
+
     fun addLocal(myProduct: Product){
         productDAO.add(myProduct)
     }
@@ -132,6 +148,27 @@ class ProductRepository(myContext:Context) {
         }.addOnFailureListener {
             productIdObserver.value = ""
         }
+        return productIdObserver
+    }
+
+    fun addAPI(myProduct: Product): MutableLiveData<String> {
+        val productIdObserver: MutableLiveData<String> = MutableLiveData()
+        productService.add(myProduct).enqueue(object : Callback<Map<String, String>> {
+            override fun onResponse(
+                call: Call<Map<String, String>>,
+                response: Response<Map<String, String>>
+            ) {
+                response.body()?.let {
+                    myProduct.id = it["name"]!!
+                    productIdObserver.value = myProduct.id
+                }
+            }
+
+            override fun onFailure(call: Call<Map<String, String>>, t: Throwable) {
+                productIdObserver.value = ""
+            }
+
+        })
         return productIdObserver
     }
 
@@ -149,6 +186,26 @@ class ProductRepository(myContext:Context) {
         return stateUpdateObserver
     }
 
+    fun updateAPI(myProduct: Product): MutableLiveData<Boolean> {
+        val stateUpdateObserver: MutableLiveData<Boolean> = MutableLiveData()
+        productService.update(myProduct.id, myProduct).enqueue(object : Callback<Product> {
+            override fun onResponse(
+                call: Call<Product>,
+                response: Response<Product>
+            ) {
+                response.body()?.let {
+                    stateUpdateObserver.value = true
+                }
+            }
+
+            override fun onFailure(call: Call<Product>, t: Throwable) {
+                stateUpdateObserver.value = false
+            }
+
+        })
+        return stateUpdateObserver
+    }
+
     fun deleteLocal(myProduct: Product) {
         productDAO.delete(myProduct)
         loadAllLocal()
@@ -163,6 +220,26 @@ class ProductRepository(myContext:Context) {
             stateDeleteObserver.value = false
         }
         return stateDeleteObserver
+    }
+
+    fun deleteAPI(myProduct: Product): MutableLiveData<Boolean> {
+        val stateUpdateObserver: MutableLiveData<Boolean> = MutableLiveData()
+        productService.delete(myProduct.id).enqueue(object : Callback<Unit> {
+            override fun onResponse(
+                call: Call<Unit>,
+                response: Response<Unit>
+            ) {
+                response.body()?.let {
+                    stateUpdateObserver.value = true
+                }
+            }
+
+            override fun onFailure(call: Call<Unit>, t: Throwable) {
+                stateUpdateObserver.value = false
+            }
+
+        })
+        return stateUpdateObserver
     }
 
 }

@@ -18,6 +18,7 @@ class ProductListActivityViewModel(application: Application): AndroidViewModel(a
     fun deleteProduct(myProduct:Product): LiveData<Boolean> {
         // productRepository.deleteLocal(myProduct)
         return productRepository.deleteFirstone(myProduct)
+        // return productRepository.deleteAPI(myProduct)
     }
 
     fun loadFakeDake(){
@@ -27,8 +28,8 @@ class ProductListActivityViewModel(application: Application): AndroidViewModel(a
     fun loadProducts(){
         // productRepository.loadAllLocal()
         // productRepository.loadAllFirestone()
-        // productRepository.listenAllFirestone()
-        productRepository.loadAllAPI()
+        productRepository.listenAllFirestone()
+        // productRepository.loadAllAPI()
     }
 
 

@@ -1,13 +1,20 @@
 package co.edu.unab.mgads.lpacheco.storeapp.model.repository
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import co.edu.unab.mgads.lpacheco.storeapp.model.entity.Product
 import co.edu.unab.mgads.lpacheco.storeapp.model.local.StoreAppDB
 import co.edu.unab.mgads.lpacheco.storeapp.model.local.dao.ProductDAO
+import co.edu.unab.mgads.lpacheco.storeapp.model.remote.StoreAppAPI
+import co.edu.unab.mgads.lpacheco.storeapp.model.remote.service.ProductService
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
 
 class ProductRepository(myContext:Context) {
 
@@ -20,6 +27,12 @@ class ProductRepository(myContext:Context) {
 
     private val PRODUCT_COLLECTION: String = "products"
     private val firestore: FirebaseFirestore = Firebase.firestore
+
+
+    private val api:Retrofit = StoreAppAPI.getInstance()!!
+    private val productService:ProductService = api.create(ProductService::class.java)
+
+
 
     fun loadAllLocal(){
         productsObserver.value = productDAO.getAll()
@@ -41,6 +54,44 @@ class ProductRepository(myContext:Context) {
         }
     }
 
+    fun loadAllAPI(){
+        productService.getAll().enqueue(object : Callback<Map<String, Product>?> {
+
+            override fun onResponse(call: Call<Map<String, Product>?>, response: Response<Map<String, Product>?>) {
+                val productList: ArrayList<Product> = arrayListOf()
+                response.body()?.let {
+                    it.forEach { (id, product) ->
+                        product.id = id
+                        productList.add(product)
+                    }
+                }
+                productsObserver.value = productList
+            }
+
+            override fun onFailure(call: Call<Map<String, Product>?>, t: Throwable) {
+                println("Error ${t.message}")
+            }
+
+        })
+    }
+
+    fun listenAllFirestone(){
+        firestore.collection(PRODUCT_COLLECTION).addSnapshotListener { snapShot, e ->
+            snapShot?.let {
+                val productList:ArrayList<Product> = arrayListOf()
+                if (!snapShot.isEmpty){
+                    for (document in snapShot.documents){
+                        val myProduct:Product?= document.toObject(Product::class.java)
+                        myProduct?.let {
+                            it.id = document.id
+                            productList.add(it)
+                        }
+                    }
+                }
+                productsObserver.value=productList
+            }
+        }
+    }
 
     fun loadFakeDate(){
         productDAO.apply {
@@ -74,26 +125,44 @@ class ProductRepository(myContext:Context) {
         productDAO.add(myProduct)
     }
 
-    fun addFirestone(myProduct:Product){
-        firestore.collection(PRODUCT_COLLECTION).add(myProduct)
+    fun addFirestone(myProduct:Product): LiveData<String>{
+        val productIdObserver: MutableLiveData<String> = MutableLiveData()
+        firestore.collection(PRODUCT_COLLECTION).add(myProduct).addOnSuccessListener {
+            productIdObserver.value = it.id
+        }.addOnFailureListener {
+            productIdObserver.value = ""
+        }
+        return productIdObserver
     }
 
     fun updateLocal(myProduct: Product){
         productDAO.update(myProduct)
     }
 
-    fun updateFirestone(myProduct:Product){
-        firestore.collection(PRODUCT_COLLECTION).document(myProduct.id).set(myProduct)
+    fun updateFirestone(myProduct:Product): LiveData<Boolean>{
+        val stateUpdateObserver: MutableLiveData<Boolean> = MutableLiveData()
+        firestore.collection(PRODUCT_COLLECTION).document(myProduct.id).set(myProduct).addOnSuccessListener {
+            stateUpdateObserver.value = true
+        }.addOnFailureListener {
+            stateUpdateObserver.value = false
+        }
+        return stateUpdateObserver
     }
 
-    fun deleteLocal(myProduct: Product){
+    fun deleteLocal(myProduct: Product) {
         productDAO.delete(myProduct)
         loadAllLocal()
     }
 
-    fun deleteFirstone(myProduct:Product){
-        firestore.collection(PRODUCT_COLLECTION).document(myProduct.id).delete()
-        loadAllFirestone()
+    fun deleteFirstone(myProduct:Product): LiveData<Boolean>{
+        val stateDeleteObserver: MutableLiveData<Boolean> = MutableLiveData()
+        firestore.collection(PRODUCT_COLLECTION).document(myProduct.id).delete().addOnSuccessListener {
+            stateDeleteObserver.value = true
+            loadAllFirestone()
+        }.addOnFailureListener {
+            stateDeleteObserver.value = false
+        }
+        return stateDeleteObserver
     }
 
 }

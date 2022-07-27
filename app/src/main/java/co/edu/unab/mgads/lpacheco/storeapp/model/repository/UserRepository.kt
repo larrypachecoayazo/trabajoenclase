@@ -50,10 +50,8 @@ class UserRepository {
 
     private fun getByIdFirestone(uid: String?) {
         uid?.let { id ->
-            println("yyyyyyyyyyyyy")
             firestone.collection(USER_COLLECTION).document(id).get()
                 .addOnSuccessListener { response ->
-                    println("zzzzzzzzzzzzzzzzzzzzzz")
                     val user:User ?= response.toObject(User::class.java)
 
                     user?.let{

@@ -50,7 +50,13 @@ class ProductListActivity : AppCompatActivity() {
         }
 
         adapter.onItemLongClickListener = {
-            viewModel.deleteProduct(it)
+            viewModel.deleteProduct(it).observe(this){ state ->
+                if (state){
+                    Toast.makeText(applicationContext, "Producto eliminado", Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(applicationContext, "Error al eliminar un producto", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
 
         bindind.btnAddProduct.setOnClickListener {
@@ -59,6 +65,7 @@ class ProductListActivity : AppCompatActivity() {
     }
 
     private fun loadProducts(){
+        viewModel.loadProducts()
         viewModel.products.observe(this) {
             if (it.isEmpty()){
                 viewModel.loadFakeDake()
@@ -68,7 +75,7 @@ class ProductListActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
-        viewModel.loadProducts()
+
         super.onResume()
     }
 

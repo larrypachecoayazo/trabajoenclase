@@ -26,7 +26,7 @@ class ProductAddActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this)[ProductAddActivityViewModel::class.java]
 
-        binding.viewModel = viewModel
+        // binding.viewModel = viewModel
 
         myProduct?.let {
 
@@ -34,9 +34,8 @@ class ProductAddActivity : AppCompatActivity() {
             binding.btnAddProductBtnAgregar.text = "Actualizar"
 
             viewModel.product = it
-
             binding.btnAddProductBtnAgregar.setOnClickListener {
-                System.out.println("Edit()")
+
                 viewModel.edit()
                 finish()
             }

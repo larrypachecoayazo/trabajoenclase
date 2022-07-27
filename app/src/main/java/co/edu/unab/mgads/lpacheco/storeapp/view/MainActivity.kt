@@ -36,11 +36,7 @@ class MainActivity : AppCompatActivity() {
 
 
         if (preferences.getBoolean("login", false)){
-            val intent = Intent(applicationContext, ProductListActivity::class.java)
-            intent.putExtra("mensaje", "Hola")
-            intent.putExtra("data", viewModel.user.name)
-            startActivity(intent)
-            finish()
+            goToProductList()
         }
 
 
@@ -73,17 +69,24 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun goToProductList() {
+        val preferences:SharedPreferences = getSharedPreferences("store_app.pref", MODE_PRIVATE)
+        val intent = Intent(applicationContext, ProductListActivity::class.java)
+        intent.putExtra("mensaje", "Hola")
+        intent.putExtra("data", preferences.getString("email", ""))
+        startActivity(intent)
+
+        finish()
+    }
+
     private fun login(){
         val preferences:SharedPreferences = getSharedPreferences("store_app.pref", MODE_PRIVATE)
         var editor:SharedPreferences.Editor = preferences.edit()
         editor.putBoolean("login", true)
+        editor.putString("email", viewModel.user.email)
         editor.apply()
 
-        val intent = Intent(applicationContext, ProductListActivity::class.java)
-        intent.putExtra("mensaje", "Hola")
-        intent.putExtra("data", viewModel.user.name)
-        startActivity(intent)
+        goToProductList()
 
-        finish()
     }
 }

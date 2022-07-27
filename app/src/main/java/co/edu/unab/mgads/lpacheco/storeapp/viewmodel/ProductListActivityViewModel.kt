@@ -14,12 +14,10 @@ class ProductListActivityViewModel(application: Application): AndroidViewModel(a
 
     var products:LiveData<List<Product>> = productRepository.productsObserver
 
-    var productVariable:LiveData<Product> = MutableLiveData()
 
-
-    fun deleteProduct(myProduct:Product){
+    fun deleteProduct(myProduct:Product): LiveData<Boolean> {
         // productRepository.deleteLocal(myProduct)
-        productRepository.deleteFirstone(myProduct)
+        return productRepository.deleteFirstone(myProduct)
     }
 
     fun loadFakeDake(){
@@ -28,7 +26,9 @@ class ProductListActivityViewModel(application: Application): AndroidViewModel(a
 
     fun loadProducts(){
         // productRepository.loadAllLocal()
-        productRepository.loadAllFirestone()
+        // productRepository.loadAllFirestone()
+        // productRepository.listenAllFirestone()
+        productRepository.loadAllAPI()
     }
 
 

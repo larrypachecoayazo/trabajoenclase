@@ -7,16 +7,21 @@ import androidx.room.PrimaryKey
 import co.edu.unab.mgads.lpacheco.storeapp.model.ProductStatus
 import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.PropertyName
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 @Entity(tableName = "products")
 data class Product(
+
     @PrimaryKey(autoGenerate = true)
     @JvmField @Exclude
+    @Expose(serialize = false, deserialize = false)
     var key :Int?=null,
 
     @Ignore
     @JvmField @Exclude
+    @Expose(serialize = false, deserialize = false)
     var id : String = "",
 
     var name: String="",
@@ -25,6 +30,7 @@ data class Product(
 
     @ColumnInfo(name = "url_image")
     @JvmField @PropertyName("url_image")
+    @SerializedName("url_image")
     var urlImage:String="http://campusvirtual.unicordoba.edu.co/wp-content/uploads/2022/06/packages.png",
 
     var description:String="",

@@ -2,6 +2,7 @@ package co.edu.unab.mgads.lpacheco.storeapp.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import co.edu.unab.mgads.lpacheco.storeapp.model.entity.Product
 import co.edu.unab.mgads.lpacheco.storeapp.model.repository.ProductRepository
 
@@ -10,14 +11,14 @@ class ProductAddActivityViewModel(application: Application): AndroidViewModel(ap
     private val productRepository:ProductRepository = ProductRepository(application)
     var product = Product(name = "", price = 0)
 
-    fun add(){
+    fun add(): LiveData<String> {
         // productRepository.addLocal(product)
-        productRepository.addFirestone(product)
+        return productRepository.addFirestone(product)
     }
 
-    fun edit() {
+    fun edit(): LiveData<Boolean> {
         // productRepository.updateLocal(product)
-        productRepository.updateFirestone(product)
+        return productRepository.updateFirestone(product)
     }
 
 

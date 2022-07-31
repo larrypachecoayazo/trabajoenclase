@@ -1,6 +1,7 @@
 package co.edu.unab.mgads.lpacheco.storeapp.model.repository
 
 import android.content.Context
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import co.edu.unab.mgads.lpacheco.storeapp.model.entity.Product
@@ -11,10 +12,14 @@ import co.edu.unab.mgads.lpacheco.storeapp.model.remote.service.ProductService
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ProductRepository(myContext:Context) {
 
@@ -141,12 +146,28 @@ class ProductRepository(myContext:Context) {
         productDAO.add(myProduct)
     }
 
-    fun addFirestone(myProduct:Product): LiveData<String>{
+    fun addFirestone(myProduct:Product, photoUri:Uri?): LiveData<String>{
         val productIdObserver: MutableLiveData<String> = MutableLiveData()
-        firestore.collection(PRODUCT_COLLECTION).add(myProduct).addOnSuccessListener {
-            productIdObserver.value = it.id
-        }.addOnFailureListener {
-            productIdObserver.value = ""
+        photoUri?.let {
+            val storageReference = Firebase.storage.reference.child(PRODUCT_COLLECTION)
+            val time = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
+            val name = "${time}.${myProduct.name}.jpg"
+            storageReference.child(name).putFile(photoUri).addOnSuccessListener {
+                it.storage.downloadUrl.addOnSuccessListener { uri ->
+                    myProduct.urlImage = uri.toString()
+                    firestore.collection(PRODUCT_COLLECTION).add(myProduct).addOnSuccessListener { result ->
+                        productIdObserver.value = result.id
+                    }.addOnFailureListener {
+                        productIdObserver.value = ""
+                    }
+                }
+            }
+        }?:run{
+            firestore.collection(PRODUCT_COLLECTION).add(myProduct).addOnSuccessListener { result ->
+                productIdObserver.value = result.id
+            }.addOnFailureListener {
+                productIdObserver.value = ""
+            }
         }
         return productIdObserver
     }

@@ -7,6 +7,9 @@
         <variable
             name="viewModel"
             type="co.edu.unab.mgads.lpacheco.storeapp.viewmodel.ProductAddActivityViewModel" />
+        <variable
+            name="product"
+            type="co.edu.unab.mgads.lpacheco.storeapp.model.entity.Product" />
 
         <import type="co.edu.unab.mgads.lpacheco.storeapp.utils.BindingUtilsKt"/>
     </data>
@@ -31,6 +34,25 @@
             app:layout_constraintRight_toRightOf="parent"
             app:srcCompat="@drawable/storeapp"
             />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ib_product_add_camera"
+            android:src="@drawable/ic_camera"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_product_add_logo"
+            app:layout_constraintRight_toLeftOf="@id/ib_product_load_image"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ib_product_load_image"
+            android:src="@drawable/ic_image_search"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/ib_product_add_camera"
+            app:layout_constraintTop_toBottomOf="@id/iv_product_add_logo"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,18 +64,18 @@
             android:textAlignment="center"
             android:textColor="@color/purple_700"
             android:textSize="24sp"
-            android:text="@{viewModel.product.name}"
+            android:text="@{product.name}"
             />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/iv_product_add_logo"
+            app:layout_constraintTop_toBottomOf="@id/ib_product_add_camera"
             android:id="@+id/et_product_add_name"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginHorizontal="48dp"
-            android:text="@={viewModel.product.name}"
+            android:text="@={product.name}"
             android:hint="@string/hint_add_product_name"
             />
 
@@ -67,35 +89,22 @@
             android:layout_marginHorizontal="48dp"
             android:hint="@string/hint_add_product_price"
             android:inputType="number"
-            android:text="@={BindingUtilsKt.intToString(viewModel.product.price)}"
+            android:text="@={BindingUtilsKt.intToString(product.price)}"
             />
-
-        <EditText
-            android:id="@+id/et_product_add_url_image"
-            app:layout_constraintTop_toBottomOf="@id/et_product_add_price"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_marginHorizontal="48dp"
-            android:hint="@string/hint_add_product_url_image"
-            android:text="@={viewModel.product.urlImage}"
-            />
-
 
 
         <EditText
             android:id="@+id/et_product_add_descripcion"
-            app:layout_constraintTop_toBottomOf="@id/et_product_add_url_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
             android:layout_marginHorizontal="48dp"
             android:hint="@string/hint_add_product_ed_description"
             android:inputType="textMultiLine"
-            android:text="@={viewModel.product.description}"
-            />
+            android:text="@={product.description}"
+            app:layout_constraintTop_toBottomOf="@id/et_product_add_price"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:layout_editor_absoluteY="365dp" />
 
         <Button
             android:id="@+id/btn_add_product_btn_agregar"

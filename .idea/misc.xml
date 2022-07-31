@@ -3,8 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/projects/StoreApp/app/src/main/res/drawable/ic_baseline_image_search_24.xml" value="0.156" />
         <entry key="..\:/projects/StoreApp/app/src/main/res/layout/activity_main.xml" value="0.2640625" />
-        <entry key="..\:/projects/StoreApp/app/src/main/res/layout/activity_product_add.xml" value="0.20277777777777778" />
+        <entry key="..\:/projects/StoreApp/app/src/main/res/layout/activity_product_add.xml" value="0.26875" />
         <entry key="..\:/projects/StoreApp/app/src/main/res/layout/activity_product_detail.xml" value="0.1" />
         <entry key="..\:/projects/StoreApp/app/src/main/res/layout/activity_product_list.xml" value="0.1" />
         <entry key="..\:/projects/StoreApp/app/src/main/res/layout/activity_prueba.xml" value="0.1" />
